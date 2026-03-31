@@ -1,27 +1,45 @@
 let yigim = [];
 
+// Elementlarni olish
+const input = document.getElementById('input');
+const List = document.getElementById('List');
 
-function crudList(e){
-    e.preventDefault();
-   List.innerHTML = yigim.map((item,index) => `<li>${item} <button onclick="deleteItem(${index})">Delete</button></li>`).join("");
+// Ro'yxatni chiqarish
+function renderList() {
+    List.innerHTML = yigim.map((item, index) => `
+        <li>
+            ${item}
+            <button onclick="editItem(${index})">Tahrirlash</button>
+            <button onclick="deleteItem(${index})">O‘chirish</button>
+        </li>
+    `).join('');
 }
 
-function add (){
-    if (input.value.trim()){
-        data.push(input.value.trim());
-        input.value = "";
-        crudList();
+// Qo‘shish funksiyasi
+function add(e) {
+    if (e) e.preventDefault();
 
+    if (input.value.trim() !== "") {
+        yigim.push(input.value.trim());
+        input.value = "";
+        renderList();
     }
 }
 
-function edit (i){
-    let yangi = prompt ("tahrirlash",data [i]);
-    if(yangi && yangi.trim()) data[i] = yangi.trim();
-    crudList();
+// Tahrirlash funksiyasi
+function editItem(index) {
+    let yangi = prompt("Yangi qiymatni kiriting:", yigim[index]);
+    
+    if (yangi !== null && yangi.trim() !== "") {   // null - cancel bosilganda
+        yigim[index] = yangi.trim();
+        renderList();
+    }
 }
 
-function del(i) {
-    if(confirm("O'chirishni tasdiqlaysizmi?")) data.splice(i,1);
-    crudList();
+// O‘chirish funksiyasi
+function deleteItem(index) {
+    if (confirm("Bu elementni o‘chirishni xohlaysizmi?")) {
+        yigim.splice(index, 1);
+        renderList();
+    }
 }
