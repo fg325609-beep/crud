@@ -1,10 +1,8 @@
 let yigim = [];
 
-// Elementlarni olish
 const input = document.getElementById('input');
 const List = document.getElementById('List');
 
-// Ro'yxatni chiqarish
 function renderList() {
     List.innerHTML = yigim.map((item, index) => `
         <li>
@@ -15,7 +13,6 @@ function renderList() {
     `).join('');
 }
 
-// Qo‘shish funksiyasi
 function add(e) {
     if (e) e.preventDefault();
 
@@ -26,17 +23,15 @@ function add(e) {
     }
 }
 
-// Tahrirlash funksiyasi
 function editItem(index) {
     let yangi = prompt("Yangi qiymatni kiriting:", yigim[index]);
     
-    if (yangi !== null && yangi.trim() !== "") {   // null - cancel bosilganda
+    if (yangi !== null && yangi.trim() !== "") {   
         yigim[index] = yangi.trim();
         renderList();
     }
 }
 
-// O‘chirish funksiyasi
 function deleteItem(index) {
     if (confirm("Bu elementni o‘chirishni xohlaysizmi?")) {
         yigim.splice(index, 1);
